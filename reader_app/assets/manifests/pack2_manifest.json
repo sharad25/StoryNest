@@ -1,6 +1,8 @@
 {
   "id": "pack2",
   "title": "Seasons Pack",
+  "description": "Short seasonal stories with bright imagery to help early readers.",
+  "image": "sample:flower",
   "version": "1.0.0",
   "story_count": 3,
   "stories": [

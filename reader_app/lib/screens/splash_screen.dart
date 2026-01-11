@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(gradient: LinearGradient(colors: [Color(0xFF4C6EF5), Color(0xFF7C3AED)], begin: Alignment.topLeft, end: Alignment.bottomRight)),
+        decoration: const BoxDecoration(gradient: LinearGradient(colors: [Color(0xFF7C3AED), Color(0xFFB388FF)], begin: Alignment.topLeft, end: Alignment.bottomRight)),
         child: SafeArea(
           child: Stack(
             children: [
@@ -18,7 +18,9 @@ class SplashScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Spacer(),
-                  const Text('StoryNest', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.bold)),
+                  const Icon(Icons.local_florist, size: 96, color: Colors.white),
+                  const SizedBox(height: 12),
+                  const Text('Story Nest', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                   const Text('Developer ABC', style: TextStyle(color: Colors.white70, fontSize: 16)),
                   const Spacer(),
@@ -40,8 +42,10 @@ class SplashScreen extends StatelessWidget {
                 top: 8,
                 right: 8,
                 child: IconButton(
-                  color: Colors.white,
-                  icon: const Icon(Icons.settings),
+                  icon: CircleAvatar(
+                    backgroundColor: Colors.white24,
+                    child: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary),
+                  ),
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
                 ),
               ),

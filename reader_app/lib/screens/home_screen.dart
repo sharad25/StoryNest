@@ -45,7 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('StoryNest'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.secondary.withAlpha((0.18 * 255).round()),
+              child: Icon(Icons.settings, color: Theme.of(context).colorScheme.secondary),
+            ),
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
           ),
         ],

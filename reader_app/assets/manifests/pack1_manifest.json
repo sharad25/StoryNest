@@ -2,6 +2,7 @@
   "id": "pack1",
   "title": "Animals Pack",
   "description": "A small collection of short animal stories for early readers. Each story has simple sentences and optional images to support reading.",
+  "image": "sample:flower",
   "version": "1.0.0",
   "story_count": 3,
   "stories": [

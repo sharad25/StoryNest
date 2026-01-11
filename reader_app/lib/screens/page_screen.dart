@@ -190,7 +190,7 @@ class _PageScreenState extends State<PageScreen> {
 
     Widget imageWidget;
     if (image != null && image == 'sample:flower') {
-      imageWidget = Icon(Icons.local_florist, size: 160, color: Colors.deepOrange);
+      imageWidget = Icon(Icons.local_florist, size: 160, color: Theme.of(context).colorScheme.primary);
     } else if (image != null && image.startsWith('data:image')) {
       try {
         final base64Part = image.split(',').last;
@@ -212,9 +212,12 @@ class _PageScreenState extends State<PageScreen> {
         title: Text(widget.story.title),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
-          ),
+                icon: CircleAvatar(
+                        backgroundColor: Theme.of(context).colorScheme.secondary.withAlpha((0.18 * 255).round()),
+                        child: Icon(Icons.settings, color: Theme.of(context).colorScheme.secondary),
+                      ),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
+              ),
         ],
       ),
       body: Padding(

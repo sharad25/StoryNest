@@ -99,7 +99,10 @@ class _PackScreenState extends State<PackScreen> {
         title: Text(pack?.title ?? 'Story Pack'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.secondary.withAlpha((0.18 * 255).round()),
+              child: Icon(Icons.settings, color: Theme.of(context).colorScheme.secondary),
+            ),
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
           ),
         ],
@@ -115,7 +118,15 @@ class _PackScreenState extends State<PackScreen> {
                       if (pack?.description != null && pack!.description!.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.only(bottom: 12.0),
-                          child: Text(pack!.description!, style: const TextStyle(fontSize: 16)),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(child: Text(pack!.description!, style: const TextStyle(fontSize: 16))),
+                              const SizedBox(width: 12),
+                              if (pack?.image != null && pack!.image == 'sample:flower')
+                                Icon(Icons.local_florist, size: 48, color: Theme.of(context).colorScheme.primary),
+                            ],
+                          ),
                         ),
                       ...stories.map((s) => Card(
                             margin: const EdgeInsets.symmetric(vertical: 8.0),

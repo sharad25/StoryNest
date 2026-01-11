@@ -26,6 +26,10 @@ class _PageScreenState extends State<PageScreen> {
   bool _isPlaying = false;
   bool _audioAvailable = false;
   StreamSubscription? _playerStateSub;
+  StreamSubscription<Duration>? _positionSub;
+  StreamSubscription<Duration?>? _durationSub;
+  Duration _position = Duration.zero;
+  Duration? _duration;
   // audio player removed; show placeholder behavior for Play button.
 
   @override
@@ -45,6 +49,15 @@ class _PageScreenState extends State<PageScreen> {
     }
     try {
       _player = AudioPlayer();
+      // Subscribe to position and duration updates for the progress UI.
+      _positionSub = _player!.positionStream.listen((p) {
+        if (!mounted) return;
+        setState(() => _position = p);
+      });
+      _durationSub = _player!.durationStream.listen((d) {
+        if (!mounted) return;
+        setState(() => _duration = d);
+      });
       // Listen to player state so UI reflects actual playing status.
       _playerStateSub = _player!.playerStateStream.listen((ps) {
         final playing = ps.playing;
@@ -156,6 +169,8 @@ class _PageScreenState extends State<PageScreen> {
   @override
   void dispose() {
     _playerStateSub?.cancel();
+    _positionSub?.cancel();
+    _durationSub?.cancel();
     _player?.dispose();
     super.dispose();
   }
@@ -216,6 +231,34 @@ class _PageScreenState extends State<PageScreen> {
               Expanded(child: SingleChildScrollView(child: Text(text, style: const TextStyle(fontSize: 18)))),
               const SizedBox(height: 12),
             ],
+            // Progress row: current seconds, seek slider, total seconds
+            Row(
+              children: [
+                Text('${_position.inSeconds}s'),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Slider(
+                    min: 0.0,
+                    max: (_duration?.inMilliseconds ?? 0).toDouble().clamp(1.0, double.infinity),
+                    value: (_duration != null)
+                        ? _position.inMilliseconds.clamp(0, _duration!.inMilliseconds).toDouble()
+                        : 0.0,
+                    onChanged: (_audioAvailable && _duration != null)
+                        ? (v) {
+                            setState(() => _position = Duration(milliseconds: v.round()));
+                          }
+                        : null,
+                    onChangeEnd: (_audioAvailable && _duration != null)
+                        ? (v) async {
+                            await _player?.seek(Duration(milliseconds: v.round()));
+                          }
+                        : null,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text('${_duration?.inSeconds ?? 0}s'),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

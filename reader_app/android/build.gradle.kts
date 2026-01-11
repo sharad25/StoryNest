@@ -22,3 +22,10 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+
+// Suppress obsolete '-source'/'-target' warnings from javac by disabling the
+// specific lint. This keeps the Gradle output quieter while the project uses
+// a modern Java toolchain (set via `compileOptions` in module build files).
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("-Xlint:-options")
+}

@@ -4,8 +4,8 @@
   "author": "StoryNest",
   "language": "en",
   "pages": [
-    { "index": 0, "text": "An owl watched the stars. He spread his wings and glided over the sleeping trees. The moon cast silver patterns on the leaves and the night smelled of pine. He listened for the quiet sounds of the forest.", "image": "sample:flower", "audio": "audio/owl0.opus" },
-    { "index": 1, "text": "Far below a mouse scurried past and the owl watched with wise eyes. He kept a gentle guard through the long night and watched the sky change to dawn.", "audio": "audio/owl1.opus" }
+    { "index": 0, "text": "An owl watched the stars. He spread his wings and glided over the sleeping trees. The moon cast silver patterns on the leaves and the night smelled of pine. He listened for the quiet sounds of the forest.", "image": "sample:flower", "audio": "assets/audio/sample_audio_narration_1.mp3" },
+    { "index": 1, "text": "Far below a mouse scurried past and the owl watched with wise eyes. He kept a gentle guard through the long night and watched the sky change to dawn.", "audio": "assets/audio/sample_audio_narration_1.mp3" }
   ],
   "sequence": [ { "type": "page", "page_index": 0 }, { "type": "page", "page_index": 1 } ],
   "questions": [],

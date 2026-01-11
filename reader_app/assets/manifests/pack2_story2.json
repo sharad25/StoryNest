@@ -4,7 +4,7 @@
   "author": "StoryNest",
   "language": "en",
   "pages": [
-    { "index": 0, "text": "Warm rain cools the earth. Tiny droplets patter on roofs and leaves while children jump in puddles. The thirsty soil drinks it in and gardens breathe a sigh of relief. Clouds drift slowly across a bright blue sky.", "image": "sample:flower", "audio": "audio/summer0.opus" }
+    { "index": 0, "text": "Warm rain cools the earth. Tiny droplets patter on roofs and leaves while children jump in puddles. The thirsty soil drinks it in and gardens breathe a sigh of relief. Clouds drift slowly across a bright blue sky.", "image": "sample:flower", "audio": "assets/audio/sample_audio_narration_1.mp3" }
   ],
   "sequence": [ { "type": "page", "page_index": 0 } ],
   "questions": [],

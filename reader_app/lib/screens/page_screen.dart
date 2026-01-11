@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 // Audio playback plugin removed to avoid build-time Android namespace issues.
 import '../models/story_manifest.dart';
@@ -46,6 +47,25 @@ class _PageScreenState extends State<PageScreen> {
     final image = page.image;
     final audio = page.audio;
 
+    Widget imageWidget;
+    if (image != null && image == 'sample:flower') {
+      imageWidget = Icon(Icons.local_florist, size: 160, color: Colors.deepOrange);
+    } else if (image != null && image.startsWith('data:image')) {
+      try {
+        final base64Part = image.split(',').last;
+        final bytes = base64Decode(base64Part);
+        imageWidget = Image.memory(bytes, fit: BoxFit.contain, errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported, size: 120));
+      } catch (_) {
+        imageWidget = const Icon(Icons.image_not_supported, size: 120);
+      }
+    } else if (image != null && image.isNotEmpty) {
+      imageWidget = Image.asset(image, fit: BoxFit.contain, errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported, size: 120));
+    } else {
+      imageWidget = const Icon(Icons.image, size: 120);
+    }
+
+    final hasImage = image != null && image.isNotEmpty;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.story.title),
@@ -61,16 +81,15 @@ class _PageScreenState extends State<PageScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
-              child: Center(
-                child: image != null
-                    ? Image.asset(image, fit: BoxFit.contain, errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported, size: 120))
-                    : const Icon(Icons.image, size: 120),
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(text, style: const TextStyle(fontSize: 18)),
-            const SizedBox(height: 12),
+            if (hasImage) ...[
+              Expanded(child: Center(child: imageWidget)),
+              const SizedBox(height: 12),
+              Text(text, style: const TextStyle(fontSize: 18)),
+              const SizedBox(height: 12),
+            ] else ...[
+              Expanded(child: SingleChildScrollView(child: Text(text, style: const TextStyle(fontSize: 18)))),
+              const SizedBox(height: 12),
+            ],
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

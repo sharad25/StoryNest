@@ -57,20 +57,27 @@ class _PackScreenState extends State<PackScreen> {
       ),
       body: pack == null
           ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: stories.length,
-              itemBuilder: (context, idx) {
-                final s = stories[idx];
-                return ListTile(
-                  title: Text(s.title),
-                  trailing: ElevatedButton(
-                    child: const Text('Open Story'),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => StoryScreen(story: s)));
-                    },
+          : ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                if (pack?.description != null && pack!.description!.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Text(pack!.description!, style: const TextStyle(fontSize: 16)),
                   ),
-                );
-              },
+                ...stories.map((s) => Card(
+                      margin: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: ListTile(
+                        title: Text(s.title),
+                        trailing: ElevatedButton(
+                          child: const Text('Open Story'),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => StoryScreen(story: s)));
+                          },
+                        ),
+                      ),
+                    )),
+              ],
             ),
     );
   }

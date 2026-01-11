@@ -4,8 +4,8 @@
   "author": "StoryNest",
   "language": "en",
   "pages": [
-    { "index": 0, "text": "A bee buzzed from flower to flower.", "image": "images/bee0.webp", "audio": "audio/bee0.opus" },
-    { "index": 1, "text": "She gathered nectar for the hive.", "image": "images/bee1.webp", "audio": "audio/bee1.opus" }
+    { "index": 0, "text": "A bee buzzed from flower to flower. She dipped her legs into bright pollen and hummed a happy tune. The garden smelled sweet and warm on the bright morning. She carried each tiny grain back to the hive.", "image": "sample:flower", "audio": "audio/bee0.opus" },
+    { "index": 1, "text": "Back home the other bees greeted her with a busy dance. Together they worked through the day and kept the hive safe. The queen smiled at the buzzing visitors and all felt proud.", "audio": "audio/bee1.opus" }
   ],
   "sequence": [ { "type": "page", "page_index": 0 }, { "type": "page", "page_index": 1 } ],
   "questions": [],

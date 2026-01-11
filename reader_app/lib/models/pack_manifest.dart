@@ -2,6 +2,7 @@ class PackManifest {
   final String id;
   final String title;
   final String? version;
+  final String? description;
   final int storyCount;
   final List<String> stories;
 
@@ -9,6 +10,7 @@ class PackManifest {
     required this.id,
     required this.title,
     this.version,
+    this.description,
     required this.storyCount,
     required this.stories,
   });
@@ -19,6 +21,7 @@ class PackManifest {
       id: j['id'] as String? ?? '',
       title: j['title'] as String? ?? '',
       version: j['version'] as String?,
+      description: j['description'] as String?,
       storyCount: j['story_count'] as int? ?? storiesList.length,
       stories: storiesList,
     );

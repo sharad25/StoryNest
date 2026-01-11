@@ -4,7 +4,7 @@
   "author": "StoryNest",
   "language": "en",
   "pages": [
-    { "index": 0, "text": "Leaves fall and crunch underfoot.", "image": "images/autumn0.webp", "audio": "audio/autumn0.opus" }
+    { "index": 0, "text": "Leaves fall and crunch underfoot. The trees dress in gold, orange, and red before the cold comes. Children gather piles to jump into with laughter, while squirrels stash away last acorns. The air turns crisp and smells like apples and wood smoke.", "image": "sample:flower", "audio": "audio/autumn0.opus" }
   ],
   "sequence": [ { "type": "page", "page_index": 0 } ],
   "questions": [],

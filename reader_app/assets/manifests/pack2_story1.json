@@ -4,7 +4,7 @@
   "author": "StoryNest",
   "language": "en",
   "pages": [
-    { "index": 0, "text": "Flowers bloom in spring.", "image": "images/spring0.webp", "audio": "audio/spring0.opus" }
+    { "index": 0, "text": "Flowers bloom in spring. Petals open to welcome warm sunshine and gentle rain. Bees flit between stems while birds return to sing, and the air fills with sweet perfume. Gardens wake up in a riot of color.", "image": "sample:flower", "audio": "audio/spring0.opus" }
   ],
   "sequence": [ { "type": "page", "page_index": 0 } ],
   "questions": [],

@@ -9,12 +9,15 @@ import 'package:just_audio/just_audio.dart';
 // Audio playback plugin: using `just_audio` for cross-platform playback.
 import '../models/story_manifest.dart';
 import 'settings_screen.dart';
+import '../utils/audio_utils.dart' as audio_utils;
 
 class PageScreen extends StatefulWidget {
   final StoryManifest story;
   final int pageIndex;
+  final bool forceAudioAvailable;
+  final int? forceDurationMs;
 
-  const PageScreen({super.key, required this.story, this.pageIndex = 0});
+  const PageScreen({super.key, required this.story, this.pageIndex = 0, this.forceAudioAvailable = false, this.forceDurationMs});
 
   @override
   State<PageScreen> createState() => _PageScreenState();
@@ -36,8 +39,14 @@ class _PageScreenState extends State<PageScreen> {
   void initState() {
     super.initState();
     index = widget.pageIndex;
-    // no-op
-    _initAudioForPage();
+    // Allow tests to force audio state without initializing real audio.
+    if (widget.forceAudioAvailable) {
+      _audioAvailable = true;
+      _duration = Duration(milliseconds: widget.forceDurationMs ?? 5000);
+      _position = Duration.zero;
+    } else {
+      _initAudioForPage();
+    }
   }
 
   Future<void> _initAudioForPage() async {
@@ -67,8 +76,8 @@ class _PageScreenState extends State<PageScreen> {
         });
       });
       if (audio == 'local:sample') {
-        // Generate a short silent WAV file at runtime and play it as a local file.
-        final file = await _generateLocalSampleWav();
+        // Generate a short sample WAV file and play it.
+        final file = await audio_utils.generateLocalSampleWav();
         await _player!.setFilePath(file.path);
         if (mounted) setState(() => _audioAvailable = true);
       } else if (audio.startsWith('http')) {
@@ -111,57 +120,7 @@ class _PageScreenState extends State<PageScreen> {
     }
   }
 
-  Future<File> _generateLocalSampleWav() async {
-    final sampleRate = 22050;
-    final durationSec = 2;
-    final numSamples = sampleRate * durationSec;
-    final bytesPerSample = 2; // 16-bit
-    final dataLength = numSamples * bytesPerSample;
-
-    const headerLen = 44;
-    final totalLen = headerLen + dataLength;
-    final bytes = Uint8List(totalLen);
-    final bd = bytes.buffer.asByteData();
-
-    // RIFF header
-    // 'RIFF'
-    bytes.setRange(0, 4, ascii.encode('RIFF'));
-    bd.setUint32(4, 36 + dataLength, Endian.little);
-    // 'WAVE'
-    bytes.setRange(8, 12, ascii.encode('WAVE'));
-
-    // fmt chunk
-    bytes.setRange(12, 16, ascii.encode('fmt '));
-    bd.setUint32(16, 16, Endian.little); // Subchunk1Size
-    bd.setUint16(20, 1, Endian.little); // AudioFormat PCM
-    bd.setUint16(22, 1, Endian.little); // NumChannels
-    bd.setUint32(24, sampleRate, Endian.little);
-    bd.setUint32(28, sampleRate * bytesPerSample, Endian.little); // ByteRate
-    bd.setUint16(32, bytesPerSample * 1, Endian.little); // BlockAlign
-    bd.setUint16(34, 16, Endian.little); // BitsPerSample
-
-    // data chunk header
-    bytes.setRange(36, 40, ascii.encode('data'));
-    bd.setUint32(40, dataLength, Endian.little);
-
-    // PCM samples (silence)
-    // Synthesize a sine wave tone (A4 = 440 Hz) so the sample is audible.
-    final freq = 440.0;
-    final amplitude = 0.5; // relative amplitude (0.0 - 1.0)
-    final maxInt16 = 32767;
-    int offset = headerLen;
-    for (var i = 0; i < numSamples; i++) {
-      final t = i / sampleRate;
-      final v = (amplitude * maxInt16 * sin(2 * pi * freq * t)).round();
-      bd.setInt16(offset, v, Endian.little);
-      offset += bytesPerSample;
-    }
-
-    final tmpDir = Directory.systemTemp;
-    final file = File('${tmpDir.path}/storynest_sample_${DateTime.now().millisecondsSinceEpoch}.wav');
-    await file.writeAsBytes(bytes, flush: true);
-    return file;
-  }
+  
 
 
   // audio init removed

@@ -12,8 +12,9 @@ import 'settings_screen.dart';
 
 class PackScreen extends StatefulWidget {
   final String packAssetPath;
+  final String? packJsonOverride;
 
-  const PackScreen({super.key, required this.packAssetPath});
+  const PackScreen({super.key, required this.packAssetPath, this.packJsonOverride});
 
   @override
   State<PackScreen> createState() => _PackScreenState();
@@ -74,7 +75,7 @@ class _PackScreenState extends State<PackScreen> {
   }
 
   Future<void> _loadPack() async {
-    final str = await rootBundle.loadString(widget.packAssetPath);
+    final str = widget.packJsonOverride ?? await rootBundle.loadString(widget.packAssetPath);
     final j = jsonDecode(str) as Map<String, dynamic>;
     final p = PackManifest.fromJson(j);
     final loaded = <StoryManifest>[];

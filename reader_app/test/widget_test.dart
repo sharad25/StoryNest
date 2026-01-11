@@ -11,20 +11,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:reader_app/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Splash shows title and Start navigates to packs', (WidgetTester tester) async {
     await tester.pumpWidget(const StoryNestApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Splash should show the app title and a Start button.
+    expect(find.text('Story Nest'), findsOneWidget);
+    expect(find.text('Start'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Tap Start and navigate to HomeScreen.
+    await tester.tap(find.text('Start'));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Home should list the packs (Animals Pack and Seasons Pack)
+    expect(find.text('Animals Pack'), findsOneWidget);
+    expect(find.text('Seasons Pack'), findsOneWidget);
   });
 }

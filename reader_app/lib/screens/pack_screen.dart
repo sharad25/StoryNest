@@ -5,11 +5,12 @@ import 'package:flutter/services.dart' show rootBundle;
 import '../models/pack_manifest.dart';
 import '../models/story_manifest.dart';
 import 'story_screen.dart';
+import 'settings_screen.dart';
 
 class PackScreen extends StatefulWidget {
   final String packAssetPath;
 
-  const PackScreen({Key? key, required this.packAssetPath}) : super(key: key);
+  const PackScreen({super.key, required this.packAssetPath});
 
   @override
   State<PackScreen> createState() => _PackScreenState();
@@ -45,7 +46,15 @@ class _PackScreenState extends State<PackScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(pack?.title ?? 'Story Pack')),
+      appBar: AppBar(
+        title: Text(pack?.title ?? 'Story Pack'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
+          ),
+        ],
+      ),
       body: pack == null
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(

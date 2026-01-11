@@ -3,12 +3,11 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/pack_manifest.dart';
-import '../models/story_manifest.dart';
-import 'story_screen.dart';
 import 'pack_screen.dart';
+import 'settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -42,7 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('StoryNest')),
+      appBar: AppBar(
+        title: const Text('StoryNest'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
+          ),
+        ],
+      ),
       body: packs.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(

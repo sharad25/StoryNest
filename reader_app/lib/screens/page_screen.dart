@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 // Audio playback plugin removed to avoid build-time Android namespace issues.
 import '../models/story_manifest.dart';
+import 'settings_screen.dart';
 
 class PageScreen extends StatefulWidget {
   final StoryManifest story;
   final int pageIndex;
 
-  const PageScreen({Key? key, required this.story, this.pageIndex = 0}) : super(key: key);
+  const PageScreen({super.key, required this.story, this.pageIndex = 0});
 
   @override
   State<PageScreen> createState() => _PageScreenState();
@@ -46,7 +47,15 @@ class _PageScreenState extends State<PageScreen> {
     final audio = page.audio;
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.story.title)),
+      appBar: AppBar(
+        title: Text(widget.story.title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -55,7 +64,7 @@ class _PageScreenState extends State<PageScreen> {
             Expanded(
               child: Center(
                 child: image != null
-                    ? Image.asset(image!, fit: BoxFit.contain, errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported, size: 120))
+                    ? Image.asset(image, fit: BoxFit.contain, errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported, size: 120))
                     : const Icon(Icons.image, size: 120),
               ),
             ),

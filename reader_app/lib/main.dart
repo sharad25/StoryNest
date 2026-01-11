@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
+// `HomeScreen` is loaded from the splash flow; avoid unused import
 
 void main() {
   runApp(const StoryNestApp());
 }
 
 class StoryNestApp extends StatelessWidget {
-  const StoryNestApp({Key? key}) : super(key: key);
+  const StoryNestApp({super.key});
 
   @override
   Widget build(BuildContext context) {

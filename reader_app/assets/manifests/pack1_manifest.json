@@ -1,0 +1,11 @@
+{
+  "id": "pack1",
+  "title": "Animals Pack",
+  "version": "1.0.0",
+  "story_count": 3,
+  "stories": [
+    "assets/manifests/pack1_story1.json",
+    "assets/manifests/pack1_story2.json",
+    "assets/manifests/pack1_story3.json"
+  ]
+}

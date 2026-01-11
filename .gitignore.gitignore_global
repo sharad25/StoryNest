@@ -1,0 +1,8 @@
+build/
+.idea/
+.vscode/
+*.iml
+ios/Pods/
+Flutter/.flutter-plugins
+.env
+.DS_Store

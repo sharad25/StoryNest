@@ -1,0 +1,31 @@
+{
+  "id": "example.story.simple",
+  "title": "The Very Short Tale",
+  "author": "StoryNest Team",
+  "language": "en",
+  "pages": [
+    {
+      "index": 0,
+      "text": "Once upon a time...",
+      "image": "images/page0.webp",
+      "audio": "audio/page0.opus",
+      "duration_ms": 3000
+    },
+    {
+      "index": 1,
+      "text": "They lived happily ever after.",
+      "image": "images/page1.webp",
+      "audio": "audio/page1.opus",
+      "duration_ms": 2500
+    }
+  ],
+  "sequence": [
+    { "type": "page", "page_index": 0 },
+    { "type": "page", "page_index": 1 }
+  ],
+  "questions": [],
+  "metadata": {
+    "reading_level": "K",
+    "duration_ms": 5500
+  }
+}

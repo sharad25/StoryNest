@@ -1,0 +1,13 @@
+{
+  "id": "pack1.story3",
+  "title": "Night Owl",
+  "author": "StoryNest",
+  "language": "en",
+  "pages": [
+    { "index": 0, "text": "An owl watched the stars.", "image": "images/owl0.webp", "audio": "audio/owl0.opus" },
+    { "index": 1, "text": "He hooted softly in the night.", "image": "images/owl1.webp", "audio": "audio/owl1.opus" }
+  ],
+  "sequence": [ { "type": "page", "page_index": 0 }, { "type": "page", "page_index": 1 } ],
+  "questions": [],
+  "metadata": { "reading_level": "K", "duration_ms": 6000 }
+}

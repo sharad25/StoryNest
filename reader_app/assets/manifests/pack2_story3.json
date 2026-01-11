@@ -1,0 +1,12 @@
+{
+  "id": "pack2.story3",
+  "title": "Autumn Leaves",
+  "author": "StoryNest",
+  "language": "en",
+  "pages": [
+    { "index": 0, "text": "Leaves fall and crunch underfoot.", "image": "images/autumn0.webp", "audio": "audio/autumn0.opus" }
+  ],
+  "sequence": [ { "type": "page", "page_index": 0 } ],
+  "questions": [],
+  "metadata": { "reading_level": "K", "duration_ms": 3000 }
+}

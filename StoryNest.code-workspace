@@ -1,0 +1,16 @@
+```jsonc
+{
+  "folders": [
+    { "path": "." },
+    { "path": "schemas" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/build": true,
+      "**/ios/Pods": true
+    },
+    "editor.formatOnSave": true
+  }
+}
+```

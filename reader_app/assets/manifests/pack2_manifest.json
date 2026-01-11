@@ -1,0 +1,11 @@
+{
+  "id": "pack2",
+  "title": "Seasons Pack",
+  "version": "1.0.0",
+  "story_count": 3,
+  "stories": [
+    "assets/manifests/pack2_story1.json",
+    "assets/manifests/pack2_story2.json",
+    "assets/manifests/pack2_story3.json"
+  ]
+}

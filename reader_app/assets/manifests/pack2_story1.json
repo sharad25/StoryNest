@@ -1,0 +1,12 @@
+{
+  "id": "pack2.story1",
+  "title": "Spring Flowers",
+  "author": "StoryNest",
+  "language": "en",
+  "pages": [
+    { "index": 0, "text": "Flowers bloom in spring.", "image": "images/spring0.webp", "audio": "audio/spring0.opus" }
+  ],
+  "sequence": [ { "type": "page", "page_index": 0 } ],
+  "questions": [],
+  "metadata": { "reading_level": "K", "duration_ms": 3000 }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "story.example.slug",
+  "title": "Example Story Title",
+  "author": "Author Name",
+  "language": "en",
+  "pages": [
+    {
+      "index": 0,
+      "text": "Page 1 text goes here.",
+      "image": "images/page-0.webp",
+      "audio": "audio/page-0.opus",
+      "duration_ms": 5000
+    }
+  ],
+  "sequence": [
+    { "type": "page", "page_index": 0 }
+  ],
+  "questions": [],
+  "metadata": {
+    "reading_level": "K",
+    "duration_ms": 5000
+  }
+}

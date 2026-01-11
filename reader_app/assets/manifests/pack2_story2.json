@@ -1,0 +1,12 @@
+{
+  "id": "pack2.story2",
+  "title": "Summer Rain",
+  "author": "StoryNest",
+  "language": "en",
+  "pages": [
+    { "index": 0, "text": "Warm rain cools the earth.", "image": "images/summer0.webp", "audio": "audio/summer0.opus" }
+  ],
+  "sequence": [ { "type": "page", "page_index": 0 } ],
+  "questions": [],
+  "metadata": { "reading_level": "K", "duration_ms": 3000 }
+}

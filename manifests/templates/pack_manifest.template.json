@@ -1,0 +1,19 @@
+{
+  "id": "pack.example.slug",
+  "title": "Example Pack Title",
+  "description": "Short description of this pack.",
+  "version": "1.0.0",
+  "story_count": 1,
+  "size_bytes": 123456,
+  "checksum": "sha256:REPLACE_WITH_SHA256",
+  "platform_urls": {
+    "android": "https://example.com/packs/pack.example.slug.android.zip",
+    "ios": "https://example.com/packs/pack.example.slug.ios.zip",
+    "kindle": "https://example.com/packs/pack.example.slug.kindle.zip"
+  },
+  "thumbnail": "images/pack-thumbnail.webp",
+  "language": "en",
+  "author": "Author Name",
+  "publish_date": "2026-01-01",
+  "license": "CC-BY-4.0"
+}

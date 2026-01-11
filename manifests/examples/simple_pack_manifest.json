@@ -1,0 +1,19 @@
+{
+  "id": "example.pack.simple",
+  "title": "Simple Example Pack",
+  "description": "A tiny example pack used for validation.",
+  "version": "0.1.0",
+  "story_count": 1,
+  "size_bytes": 2048,
+  "checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "platform_urls": {
+    "android": "https://example.com/simple-pack/android.zip",
+    "ios": "https://example.com/simple-pack/ios.zip",
+    "kindle": "https://example.com/simple-pack/kindle.zip"
+  },
+  "thumbnail": "thumbnail.webp",
+  "language": "en",
+  "author": "StoryNest Team",
+  "publish_date": "2026-01-01",
+  "license": "CC-BY-4.0"
+}

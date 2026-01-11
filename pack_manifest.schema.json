@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PackManifest",
+  "type": "object",
+  "required": ["id","title","version","story_count","size_bytes","checksum","platform_urls"],
+  "properties": {
+    "id": {"type":"string"},
+    "title": {"type":"string"},
+    "description": {"type":"string"},
+    "version": {"type":"string"},
+    "story_count": {"type":"integer","minimum":0},
+    "size_bytes": {"type":"integer","minimum":0},
+    "checksum": {
+      "type":"string",
+      "pattern":"^sha256:[A-Fa-f0-9]{64}$"
+    },
+    "platform_urls": {
+      "type":"object",
+      "required":["android","ios","kindle"],
+      "properties":{
+        "android":{"type":"string","format":"uri"},
+        "ios":{"type":"string","format":"uri"},
+        "kindle":{"type":"string","format":"uri"}
+      }
+    },
+    "thumbnail": {"type":"string"},
+    "language": {"type":"string"},
+    "author": {"type":"string"},
+    "publish_date": {"type":"string","format":"date"},
+    "license": {"type":"string"}
+  },
+  "additionalProperties": false
+}

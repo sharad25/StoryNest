@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ class _PageScreenState extends State<PageScreen> {
   late int index;
   AudioPlayer? _player;
   bool _isPlaying = false;
+  bool _audioAvailable = false;
+  StreamSubscription? _playerStateSub;
   // audio player removed; show placeholder behavior for Play button.
 
   @override
@@ -36,15 +39,28 @@ class _PageScreenState extends State<PageScreen> {
   Future<void> _initAudioForPage() async {
     final page = widget.story.pages[index];
     final audio = page.audio;
-    if (audio == null || audio.isEmpty) return;
+    if (audio == null || audio.isEmpty) {
+      if (mounted) setState(() => _audioAvailable = false);
+      return;
+    }
     try {
       _player = AudioPlayer();
+      // Listen to player state so UI reflects actual playing status.
+      _playerStateSub = _player!.playerStateStream.listen((ps) {
+        final playing = ps.playing;
+        if (!mounted) return;
+        setState(() {
+          _isPlaying = playing;
+        });
+      });
       if (audio == 'local:sample') {
         // Generate a short silent WAV file at runtime and play it as a local file.
         final file = await _generateLocalSampleWav();
         await _player!.setFilePath(file.path);
+        if (mounted) setState(() => _audioAvailable = true);
       } else if (audio.startsWith('http')) {
         await _player!.setUrl(audio);
+        if (mounted) setState(() => _audioAvailable = true);
       } else {
         // Try as asset path. Verify asset exists in bundle first to provide
         // a clearer error message if it's missing.
@@ -63,7 +79,9 @@ class _PageScreenState extends State<PageScreen> {
         final tmpFile = File('${tmpDir.path}/storynest_asset_${DateTime.now().millisecondsSinceEpoch}.$ext');
         await tmpFile.writeAsBytes(bytes, flush: true);
         await _player!.setFilePath(tmpFile.path);
+        if (mounted) setState(() => _audioAvailable = true);
       }
+      // Start playback after source set. Update playing state when started.
       await _player!.play();
       if (!mounted) return;
       setState(() => _isPlaying = true);
@@ -72,9 +90,11 @@ class _PageScreenState extends State<PageScreen> {
       await _player?.dispose();
       _player = null;
       if (!mounted) return;
-      setState(() => _isPlaying = false);
       debugPrint('Audio init error for page $index: $e\n$st');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Audio unavailable: ${e.toString()}')));
+      setState(() {
+        _isPlaying = false;
+        _audioAvailable = false;
+      });
     }
   }
 
@@ -135,6 +155,7 @@ class _PageScreenState extends State<PageScreen> {
 
   @override
   void dispose() {
+    _playerStateSub?.cancel();
     _player?.dispose();
     super.dispose();
   }
@@ -203,14 +224,18 @@ class _PageScreenState extends State<PageScreen> {
                   child: const Text('Prev'),
                 ),
                 ElevatedButton(
-                  onPressed: _player != null
+                  onPressed: (_audioAvailable || _isPlaying)
                       ? () async {
                           if (_isPlaying) {
                             await _player!.pause();
-                            setState(() => _isPlaying = false);
+                            setState(() {
+                              _isPlaying = false;
+                            });
                           } else {
                             await _player!.play();
-                            setState(() => _isPlaying = true);
+                            setState(() {
+                              _isPlaying = true;
+                            });
                           }
                         }
                       : null,

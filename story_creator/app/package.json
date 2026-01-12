@@ -1,0 +1,15 @@
+{
+  "name": "story-creator-app",
+  "version": "0.1.0",
+  "description": "Skeleton desktop app for Story Creator (Electron)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^26.0.0"
+  }
+}
